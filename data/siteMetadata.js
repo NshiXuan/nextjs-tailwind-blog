@@ -1,6 +1,6 @@
 const siteMetadata = {
   title: 'codersx的个人博客',
-  author: '狂奔滴小马',
+  author: 'codersx',
   // headerTitle: '首页', # header左边的title
   description: '分享 JavaScript、TypeScript、Java 以及热门框架。',
   language: 'en-us',
