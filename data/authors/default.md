@@ -1,21 +1,21 @@
 ---
-name: 狂奔滴小马
-avatar: /static/images/avatar.png
+name: codersx # 名称
+avatar: /static/images/avatar.png # 头像 在public的static的img中
 occupation: 前端工程师
-company: 分享 JavaScript 热门框架，记录前端工程师学习成长历程。
-email: maqi1520@163.com
-juejin: https://juejin.cn/user/2189882895384093
-zhihu: https://www.zhihu.com/people/xiao-ma-15-3
-github: https://github.com/maqi1520
+company: 分享学到的编程技术、热门框架，记录Coder的学习成长历程。
+email: 1743091664@qq.com # 邮箱
+juejin: https://juejin.cn/user/1047207118903469 # 掘金地址
+github: https://github.com/NshiXuan?tab=repositories # github地址
 ---
 
-- 姓名：马琪斌
-- 昵称：狂奔滴小马
-- 座右铭：你不一定要很厲害，才能開始；但你要開始，才能很厲害
-- 我是一名前端工程师，也是一名 Javascript 全栈开发者，长期关注前端工程化，开发体验优化等方向，近期对低代码、微前端、serverless、vite 有浓厚兴趣并实践中
-- 坐标：杭州
+- 姓名：codersx
+
+- 昵称：codersx
+- 座右铭：你可以浪费时间在喜欢的事情上，但不要浪费时间在讨厌的事情上
+- 我是一名前端工程师，也是一名中南民族大学的大三在校生，喜欢编程、打篮球，对前端新技术充满好奇
+- 坐标：武汉
 - skill：
-  - 前端：React、ES6/7/8、Antd、Axios、Tailwindcss
-  - 服务端：Next.js、Koa2、Prisma、Typeorm
-  - 数据库：Mysql、Postgresql
-  - 其他：Webpack、Vite、Typescript、Serverless
+  - 前端：HTML、CSS、JavaScript、TypeScript、Vue、React、Next.js、Nuxt3
+  - 服务端：Node.js、Nest.js、Prisma、Java、SpringBoot
+  - 数据库：Mysql、redis
+  - 其他：Webpack、Vite

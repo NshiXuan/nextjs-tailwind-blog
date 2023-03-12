@@ -49,8 +49,9 @@ export default function PostLayout(props: Props) {
       />
       <ProgressBar />
       <ScrollTopAndComment />
+
       <article>
-        <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
+        <div className="m-auto max-w-4xl xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <header className="pt-6 xl:pb-6">
             <div className="space-y-1 text-center">
               <dl className="space-y-10">
@@ -68,41 +69,57 @@ export default function PostLayout(props: Props) {
               </div>
             </div>
           </header>
+
+          {/* 目录定位 */}
+          <div className="right-100 top-0 z-10 mt-6 rounded-xl bg-white p-5 shadow-lg dark:bg-black dark:shadow-black">
+            {/* 作者头像 */}
+            <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
+              <dt className="sr-only">Authors</dt>
+              <dd>
+                <ul className="flex justify-center space-x-8 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
+                  {authorDetails.map((author) => (
+                    <li className="flex items-center space-x-2" key={author.name}>
+                      {author.avatar && (
+                        <Image
+                          src={author.avatar}
+                          width="38px"
+                          height="38px"
+                          alt="avatar"
+                          className="h-10 w-10 rounded-full"
+                        />
+                      )}
+                      <dl className="whitespace-nowrap text-sm font-medium leading-5">
+                        <dt className="sr-only">作者</dt>
+                        <dd className="text-gray-900 dark:text-gray-100">{author.name}</dd>
+                      </dl>
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </dl>
+
+            {/* 返回文章列表 */}
+            <div className="pt-4 xl:pt-8">
+              <Link href="/blog" className=" text-cyan-400">
+                返回文章列表
+              </Link>
+            </div>
+
+            {/* 目录 */}
+            <h2 className="pt-6 text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+              目录
+            </h2>
+
+            <TOCInline asDisclosure={false} toc={props.toc} />
+          </div>
+
           <div
-            className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
+            className=" divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid  xl:divide-y-0"
             style={{ gridTemplateRows: 'auto 1fr' }}
           >
-            <div className="">
-              <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
-                <dt className="sr-only">Authors</dt>
-                <dd>
-                  <ul className="flex justify-center space-x-8 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
-                    {authorDetails.map((author) => (
-                      <li className="flex items-center space-x-2" key={author.name}>
-                        {author.avatar && (
-                          <Image
-                            src={author.avatar}
-                            width="38px"
-                            height="38px"
-                            alt="avatar"
-                            className="h-10 w-10 rounded-full"
-                          />
-                        )}
-                        <dl className="whitespace-nowrap text-sm font-medium leading-5">
-                          <dt className="sr-only">作者</dt>
-                          <dd className="text-gray-900 dark:text-gray-100">{author.name}</dd>
-                        </dl>
-                      </li>
-                    ))}
-                  </ul>
-                </dd>
-              </dl>
-              <h2 className="pt-6 text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                目录
-              </h2>
-              <TOCInline asDisclosure={false} toc={props.toc} />
-            </div>
-            <div className="xl:col-span-3 xl:row-span-2 xl:pb-0">
+            {/* 文章展示 */}
+            {/* <div className="xl:col-span-3 xl:row-span-2 xl:pb-0"> */}
+            <div className=" ">
               {src ? (
                 <div className="mt-6">
                   <img alt={title} className="w-full rounded object-cover shadow-lg" src={src} />
@@ -111,23 +128,13 @@ export default function PostLayout(props: Props) {
               <div className="prose max-w-none break-words pt-10 pb-8 dark:prose-dark">
                 {children}
               </div>
-              <div className="border-t border-gray-200 pt-6 pb-6 text-sm text-gray-700 dark:border-gray-700 dark:text-gray-300">
-                <div className="mb-3">
-                  <Image
-                    alt="runjs-cool"
-                    width={384}
-                    height={140}
-                    src={`/static/images/runjs-cool.webp`}
-                  />
-                </div>
 
-                <span>关注微信公众号，获取最新原创文章（首发）</span>
-                <Link href={editUrl(fileName)}>{'View on GitHub'}</Link>
-              </div>
               <Comments frontMatter={frontMatter} />
             </div>
+
             <footer>
-              <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
+              {/* 上一篇 下一篇 */}
+              {/* <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
                 {tags && (
                   <div className="py-4 xl:py-8">
                     <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
@@ -164,15 +171,7 @@ export default function PostLayout(props: Props) {
                     )}
                   </div>
                 )}
-              </div>
-              <div className="pt-4 xl:pt-8">
-                <Link
-                  href="/blog"
-                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                >
-                  &larr; 返回文章列表
-                </Link>
-              </div>
+              </div> */}
             </footer>
           </div>
         </div>

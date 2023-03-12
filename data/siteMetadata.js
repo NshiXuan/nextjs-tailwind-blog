@@ -1,21 +1,21 @@
 const siteMetadata = {
-  title: '狂奔滴小马 | 前端工程师成长部落阁',
+  title: 'codersx的个人博客',
   author: '狂奔滴小马',
-  headerTitle: '小马部落阁',
-  description: '分享 JavaScript 以及热门框架，记录前端工程师学习成长历程。',
+  // headerTitle: '首页', # header左边的title
+  description: '分享 JavaScript、TypeScript、Java 以及热门框架。',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://maqib.cn',
-  siteRepo: 'https://github.com/maqi1520/nextjs-tailwind-blog',
-  siteLogo: '/static/images/logo.png',
-  image: '/static/images/avatar.png',
-  socialBanner: '/static/images/twitter-card.png',
-  email: 'maqi1520@163.com',
-  github: 'https://github.com/maqi1520',
-  juejin: 'https://juejin.cn/user/2189882895384093',
-  zhihu: 'https://www.zhihu.com/people/xiao-ma-15-3',
+  siteUrl: 'https://codersx.cn',
+  // siteRepo: 'https://github.com/maqi1520/nextjs-tailwind-blog', # 项目仓库
+  // siteLogo: '/static/images/logo.png', # logo
+  // image: '/static/images/avatar.png',
+  // socialBanner: '/static/images/twitter-card.png',
+  email: '1743091664@qq.com',
+  github: 'https://github.com/NshiXuan?tab=repositories', // github地址
+  juejin: 'https://juejin.cn/user/1047207118903469 ', // 掘金地址
+  // zhihu: 'https://www.zhihu.com/people/xiao-ma-15-3',
   locale: 'zh-CN',
-  welcome: '自在，轻盈，我本不想停留',
+  welcome: '了解真相，才能实现真正的自由',
   analytics: {
     //如果要使用分析提供程序，则必须将其添加到。
     //`next.config.js`文件中的内容安全策略。

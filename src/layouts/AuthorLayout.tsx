@@ -37,7 +37,7 @@ export default function AuthorLayout({ children, frontMatter }: Props) {
               <SocialIcon kind="mail" href={`mailto:${email}`} />
               <SocialIcon kind="github" href={github} />
               <SocialIcon kind="juejin" href={juejin} />
-              <SocialIcon kind="zhihu" href={zhihu} />
+              {/* <SocialIcon kind="zhihu" href={zhihu} /> */}
             </div>
           </div>
           <div className="prose max-w-none pt-8 pb-8 dark:prose-dark xl:col-span-2">{children}</div>
