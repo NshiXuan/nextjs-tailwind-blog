@@ -4,10 +4,10 @@ date: '2023/2/15' # 发布时间
 lastmod: '2022/3/10'
 tags: [Vue3] # 标签
 draft: false
-summary: ''
+summary: 'Vue3的defineEmits、defineProps结合TS'
 images: # 文章封面 必须要
   [
-    'https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a649bcaab497486a91335767525b8201~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?',
+    'https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/001450c70cc74e7f87a40412d20f06a9~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?',
   ]
 layout: PostLayout
 ---
