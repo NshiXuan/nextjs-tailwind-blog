@@ -6,9 +6,9 @@ const siteMetadata = {
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://codersx.cn',
-  // siteRepo: 'https://github.com/maqi1520/nextjs-tailwind-blog', # 项目仓库
+  siteRepo: 'https://github.com/NshiXuan/nextjs-tailwind-blog', // 项目仓库
   // siteLogo: '/static/images/logo.png', # logo
-  // image: '/static/images/avatar.png',
+  image: '/static/images/avatar.png',
   // socialBanner: '/static/images/twitter-card.png',
   email: '1743091664@qq.com',
   github: 'https://github.com/NshiXuan?tab=repositories', // github地址

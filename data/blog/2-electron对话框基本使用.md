@@ -6,9 +6,7 @@ tags: [electron] # 标签
 draft: false
 summary: 'electron对话框基本使用'
 images: # 文章封面 必须要
-  [
-    'https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c3bfa87a-7673-48ef-9b64-155c9a0d0e98/Untitled.png',
-  ]
+  ['']
 layout: PostLayout
 ---
 
@@ -67,7 +65,7 @@ module.exports = {
 
 ## 警告框与确认框结合使用 - checkbox
 
-```
+```ts
 const { Menu, shell, app, BrowserWindow, dialog } = require('electron')
 
 const isMac = process.platform == 'darwin'
@@ -87,7 +85,7 @@ const createMenu = (win) => {
               buttons: ['取消', '确定'], // 如果
               cancelId: 0, // 定义按esc的时候默认触发1按钮 也就是 确定
               checkboxLabel: '确定访问吗',
-              checkboxChecked: true // 默认选中
+              checkboxChecked: true, // 默认选中
             })
             // console.log(res)
             if (!res.checkboxChecked) {
@@ -96,10 +94,10 @@ const createMenu = (win) => {
             if (res.response == 1) {
               shell.openExternal('https://www.houdunren.com')
             }
-          }
-        }
-      ]
-    }
+          },
+        },
+      ],
+    },
   ]
 
   // Menu.buildFromTemplate构建菜单对象
@@ -107,11 +105,11 @@ const createMenu = (win) => {
 }
 
 module.exports = {
-  createMenu
+  createMenu,
 }
 ```
 
-```
+```ts
 const { Menu, shell, app, BrowserWindow, dialog } = require('electron')
 
 const isMac = process.platform == 'darwin'
@@ -131,7 +129,7 @@ const createMenu = (win) => {
               buttons: ['取消', '确定'], // 如果
               cancelId: 0, // 定义按esc的时候默认触发1按钮 也就是 确定
               checkboxLabel: '确定访问吗',
-              checkboxChecked: true // 默认选中
+              checkboxChecked: true, // 默认选中
             })
             // console.log(res)
             if (!res.checkboxChecked) {
@@ -140,10 +138,10 @@ const createMenu = (win) => {
             if (res.response == 1) {
               shell.openExternal('https://www.houdunren.com')
             }
-          }
-        }
-      ]
-    }
+          },
+        },
+      ],
+    },
   ]
 
   // Menu.buildFromTemplate构建菜单对象
@@ -151,7 +149,7 @@ const createMenu = (win) => {
 }
 
 module.exports = {
-  createMenu
+  createMenu,
 }
 ```
 
@@ -254,7 +252,7 @@ require('./ipcMain')
 
 1. 渲染进程
 
-```
+```ts
 window.addEventListener('DOMContentLoaded', () => {
   const btn = document.querySelector('#saveBtn')
   btn.addEventListener('click', async () => {

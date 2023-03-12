@@ -15,7 +15,7 @@ github: https://github.com/NshiXuan?tab=repositories # github地址
 - 我是一名前端工程师，也是一名中南民族大学的大三在校生，喜欢编程、打篮球，对前端新技术充满好奇
 - 坐标：武汉
 - skill：
-  - 前端：HTML、CSS、JavaScript、TypeScript、Vue、React、Next.js、Nuxt3
+  - 前端：HTML、CSS、JavaScript、TypeScript、Vue、React、Next.js、Nuxt3、Electron
   - 服务端：Node.js、Nest.js、Prisma、Java、SpringBoot
-  - 数据库：Mysql、redis
+  - 数据库：Mysql、Redis
   - 其他：Webpack、Vite
