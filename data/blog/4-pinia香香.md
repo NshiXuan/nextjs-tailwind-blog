@@ -1,6 +1,6 @@
 ---
 title: 'pinia香香' # 标题
-date: '2023/3/15' # 发布时间
+date: '2023/3/12' # 发布时间
 # lastmod: '2022/3/10'
 tags: [vue3, pinia] # 标签
 draft: false

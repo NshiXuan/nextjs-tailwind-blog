@@ -1,6 +1,6 @@
 ---
 title: 'Vue3获取audio标签播放音频' # 标题
-date: '2023/3/15' # 发布时间
+date: '2023/3/12' # 发布时间
 # lastmod: '2022/3/10'
 tags: [Vue3] # 标签
 draft: false
