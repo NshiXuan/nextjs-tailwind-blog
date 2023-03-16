@@ -14,7 +14,7 @@ layout: PostLayout
 
 如果只定义一行文本溢出，直接使用 `tailwindcss` 定义的类即可
 
-```
+```ts
 <div className="truncate">{itemData.name}</div>
 ```
 
@@ -22,13 +22,13 @@ layout: PostLayout
 
 安装插件
 
-```
+```css
 pnpm add @tailwindcss/line-clamp
 ```
 
 - 在 `tailwind.config.js` 中导入插件
 
-```
+```js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   ...
@@ -38,6 +38,6 @@ module.exports = {
 
 - 使用
 
-```
+```ts
 <div className="line-clamp-2">{itemData.name}</div>
 ```
