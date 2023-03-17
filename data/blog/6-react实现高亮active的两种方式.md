@@ -2,11 +2,13 @@
 title: 'react实现高亮active的两种方式' # 标题
 date: '2023/3/16' # 发布时间
 # lastmod: '2022/3/10'
-tags: [tailwindcss] # 标签
+tags: [React] # 标签
 draft: false
 summary: 'react添加高亮的两种实现方式'
 images: # 文章封面 必须要
-  ['']
+  [
+    'https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/569ca2d5651844fb8001a3df9e71ee08~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?',
+  ]
 layout: PostLayout
 ---
 
