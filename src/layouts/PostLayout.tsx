@@ -71,9 +71,9 @@ export default function PostLayout(props: Props) {
           </header>
 
           {/* 目录定位 */}
-          <div className="right-100 top-0 z-10 mt-6 rounded-xl bg-white p-5 shadow-lg dark:bg-black dark:shadow-black">
-            {/* 作者头像 */}
-            <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
+          {/* <div className="right-100 top-0 z-10 mt-6 rounded-xl bg-white p-5 shadow-lg dark:bg-black dark:shadow-black"> */}
+          {/* 作者头像 */}
+          {/* <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
               <dt className="sr-only">Authors</dt>
               <dd>
                 <ul className="flex justify-center space-x-8 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
@@ -96,22 +96,22 @@ export default function PostLayout(props: Props) {
                   ))}
                 </ul>
               </dd>
-            </dl>
+            </dl> */}
 
-            {/* 返回文章列表 */}
-            <div className="pt-4 xl:pt-8">
+          {/* 返回文章列表 */}
+          {/* <div className="pt-4 xl:pt-8">
               <Link href="/blog" className=" text-cyan-400">
                 返回文章列表
               </Link>
-            </div>
+            </div> */}
 
-            {/* 目录 */}
-            <h2 className="pt-6 text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          {/* 目录 */}
+          {/* <h2 className="pt-6 text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">
               目录
             </h2>
 
             <TOCInline asDisclosure={false} toc={props.toc} />
-          </div>
+          </div> */}
 
           <div
             className=" divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid  xl:divide-y-0"
