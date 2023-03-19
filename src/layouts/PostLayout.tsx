@@ -51,7 +51,7 @@ export default function PostLayout(props: Props) {
       <ScrollTopAndComment />
 
       <article>
-        <div className="m-auto max-w-4xl xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
+        <div className="m-auto box-border max-w-4xl xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <header className="pt-6 xl:pb-6">
             <div className="space-y-1 text-center">
               <dl className="space-y-10">
@@ -125,7 +125,7 @@ export default function PostLayout(props: Props) {
                   <img alt={title} className="w-full rounded object-cover shadow-lg" src={src} />
                 </div>
               ) : null}
-              <div className="prose max-w-none break-words pt-10 pb-8 dark:prose-dark">
+              <div className=" prose box-border w-[900px] max-w-none break-words pt-10 pb-8 dark:prose-dark">
                 {children}
               </div>
 

@@ -69,7 +69,8 @@ const ScrollView: FC<IProps> = memo(function (props) {
     // 5.3获取滚动内容的div
     const childrenDiv = scrollContentRef.current?.children[newIndex] as HTMLDivElement
 
-    // 5.4通过内容的div获取距离父盒子的左距离offsetLeft(左边距离父盒子的宽度相对于上一级的定位元素/table、td、th 如果没有定位元素则为body 详细看MDN)作为滚动距离
+    // 5.4通过内容的div获取距离父盒子的左距离offsetLeft作为滚动距离
+    // (左边距离父盒子的宽度相对于上一级的定位元素/table、td、th 如果没有定位元素则为body 详细看MDN)
     const offsetLeft = childrenDiv.offsetLeft
 
     // 5.5通过ref的style实现滚动
