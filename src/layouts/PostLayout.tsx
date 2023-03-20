@@ -125,7 +125,7 @@ export default function PostLayout(props: Props) {
                   <img alt={title} className="w-full rounded object-cover shadow-lg" src={src} />
                 </div>
               ) : null}
-              <div className=" prose box-border w-[900px] max-w-none break-words pt-10 pb-8 dark:prose-dark">
+              <div className=" prose box-border max-w-[900px]  break-words pt-10 pb-8 dark:prose-dark">
                 {children}
               </div>
 
