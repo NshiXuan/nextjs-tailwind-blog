@@ -6,7 +6,9 @@ tags: [tailwindcss] # 标签
 draft: false
 summary: 'tailwindcss的文本溢出'
 images: # 文章封面 必须要
-  ['']
+  [
+    'https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fb81176f617e46c486660bb9fda59fa4~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?',
+  ]
 layout: PostLayout
 ---
 
