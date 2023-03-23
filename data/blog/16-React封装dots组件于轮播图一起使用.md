@@ -14,7 +14,9 @@ layout: PostLayout
 
 <img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1b37fcfe99bd4c118fdbdfc7c149c2e7~tplv-k3u1fbpfcp-watermark.image?" alt="image.png" width="50%" />
 
-封装 `dots` 组件
+封装 `dots` 组件，计算 `dots` 滚动的算法如下
+
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1dd417e515024ac59f9ee0f75dd58006~tplv-k3u1fbpfcp-watermark.image?)
 
 ```ts
 import React, { useEffect, useRef } from 'react'
