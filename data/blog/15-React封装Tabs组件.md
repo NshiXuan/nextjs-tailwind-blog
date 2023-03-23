@@ -5,7 +5,7 @@ date: '2023/3/21' # 发布时间
 tags: [React] # 标签
 draft: false
 summary: 'React封装标签栏组件'
-images: # 文章封面 必须要
+images: # 文章封面 不要就留个''空字符串
   [
     'https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/569ca2d5651844fb8001a3df9e71ee08~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?',
   ]
