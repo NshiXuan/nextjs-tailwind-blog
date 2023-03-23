@@ -118,11 +118,6 @@ const RoomItem: FC<IProps> = function (props) {
     itemClick && itemClick(itemData as EntireHomeItem)
   }
 
-  // 更多页面展示的轮播图
-  const swiperElement = (
-
-  )
-
   return (
      <div className={style.swiper}>
       {/* 滚动箭头 */}
