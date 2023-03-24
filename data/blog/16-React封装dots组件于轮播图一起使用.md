@@ -23,6 +23,9 @@ import React, { useEffect, useRef } from 'react'
 import { ReactNode } from 'react'
 import type { FC } from 'react'
 
+import style from './index.module.scss'
+import classNames from 'classnames'
+
 export interface IProps {
   children?: ReactNode
   selectIndex?: number
@@ -59,13 +62,17 @@ const Indicator: FC<IProps> = function (props) {
     // 右边边界判断
     if (distance > totalDistance) distance = totalDistance
 
-    // console.log(distance)
     dotsRef.current!.style.transform = `translate(${-distance}px)`
   }, [selectIndex])
 
   return (
-    <div className="flex transition duration-200 ease-in-out  " ref={dotsRef}>
-      {children}
+    <div className="overflow-hidden">
+      <div
+        className={classNames('flex transition duration-200 ease-in-out ', style.scroll)}
+        ref={dotsRef}
+      >
+        {children}
+      </div>
     </div>
   )
 }
@@ -74,6 +81,16 @@ export default Indicator
 
 // 设置一个方便调试的name 可以不写 默认为组件名称
 Indicator.displayName = 'Indicator'
+```
+
+`Indicator` 的样式
+
+```css
+.scroll {
+  > * {
+    flex-shrink: 0;
+  }
+}
 ```
 
 在 `room-item` 组件中结合 `antd` 的轮播图组件时使用
