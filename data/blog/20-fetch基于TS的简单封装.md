@@ -2,7 +2,7 @@
 title: 'fetch基于TS的简单封装' # 标题
 date: '2023/3/25' # 发布时间
 # lastmod: '2022/3/10'
-tags: [React] # 标签
+tags: [JavaScript、TypeScript] # 标签
 draft: false
 summary: 'fetch基于TS的简单封装'
 images: # 文章封面 不要就留个''空字符串
