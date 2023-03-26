@@ -6,6 +6,12 @@ const projectsData = [
     href: 'https://airbnb-next.netlify.app/',
   },
   {
+    title: 'sx-music-next',
+    description: `一个使用React、TS、Next仿的网易云商城官网`,
+    imgSrc: '',
+    href: 'https://sx-music-next.netlify.app/',
+  },
+  {
     title: 'electron',
     description: `一个使用Electron、Vue3、TS、Tailwind CSS开发的桌面摄像头软件`,
     imgSrc: '',
@@ -16,6 +22,12 @@ const projectsData = [
     description: `一个使用Vue3、TS、Nuxt3开发的仿OPPO官网`,
     imgSrc: '',
     href: 'https://sx-oppo-nuxt.netlify.app/',
+  },
+  {
+    title: 'sx-artistic-react',
+    description: `一个使用React开发的移动端适配的网页`,
+    imgSrc: '',
+    href: 'https://sx-artistic-react.netlify.app/',
   },
   {
     title: 'food-dlivery',
