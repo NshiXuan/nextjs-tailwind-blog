@@ -7,7 +7,7 @@ draft: false
 summary: 'Java中Stream的常用方法'
 images: # 文章封面 不要就留个''空字符串
   [
-    'https://cn.bing.com/images/search?view=detailV2&ccid=%2ft5hyNwN&id=533828F2F7239AEBA3C74904F613D62307670672&thid=OIP._t5hyNwNH3cI1_m049rLcwHaD5&mediaurl=https%3a%2f%2fwallpapercave.com%2fwp%2fwp6933338.jpg&exph=1076&expw=2048&q=Java&simid=607990537215691976&FORM=IRPRST&ck=CE42F4C49C0351B4852F4FB34D4580FF&selectedIndex=3',
+    'https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f2ff2a0330b94d4d935cd2cc26a1b4f5~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?',
   ]
 layout: PostLayout
 ---
