@@ -12,7 +12,9 @@ images: # 文章封面 不要就留个''空字符串
 layout: PostLayout
 ---
 
-如下，允许所有请求方法跨域调用，也可以配置允许哪些 ip 地址可以跨域访问
+如下，创建 `GlobalCorsConfig` 类，定义跨域拦截器，允许所有请求方法跨域调用，也可以配置允许哪些 ip 地址可以跨域访问
+
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/808421ae26774394b2c029edcdb1e73d~tplv-k3u1fbpfcp-watermark.image?)
 
 ```java
 import org.springframework.context.annotation.Bean;
@@ -26,7 +28,6 @@ public class GlobalCorsConfig {
 
     @Bean
     public CorsFilter corsFilter() {
-
         CorsConfiguration config = new CorsConfiguration();
         //允许白名单域名进行跨域调用
         config.addAllowedOrigin("*");
