@@ -12,13 +12,6 @@ images: # 文章封面 不要就留个''空字符串
 layout: PostLayout
 ---
 
----
-
-theme: channing-cyan
-highlight: a11y-dark
-
----
-
 ## 安装依赖
 
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a7db18c8658140b6826c0383b9ad6686~tplv-k3u1fbpfcp-watermark.image?)
