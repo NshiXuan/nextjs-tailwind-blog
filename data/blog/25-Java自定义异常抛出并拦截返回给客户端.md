@@ -49,8 +49,8 @@ public class MyException extends RuntimeException {
     public MyException() {
     }
 
-    public MyException(Code code) {
-        this.commonErr = code;
+    public MyException(Code commonErr) {
+        this.commonErr = commonErr;
     }
 
     public Code getCommonErr() {
