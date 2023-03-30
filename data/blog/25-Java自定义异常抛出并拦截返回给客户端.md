@@ -61,8 +61,8 @@ public class MyException extends RuntimeException {
         this.commonErr = commonErr;
     }
 
-    public static void cast(Code code) {
-        throw new MyException(code);
+    public static void cast(Code commonErr) {
+        throw new MyException(commonErr);
     }
 }
 ```
