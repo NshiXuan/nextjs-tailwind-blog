@@ -53,7 +53,7 @@ public class AddCourseDto {
 }
 ```
 
-创建全局异常处理类 `GlobalExceptionHandler` 与异常返回类 `RestErrorResponse`
+创建全局异常处理类 `GlobalExceptionHandler` 与异常返回类 `R`
 
 ![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/98d052d34d314f4bbf0c631a4d042d22~tplv-k3u1fbpfcp-watermark.image?)
 
