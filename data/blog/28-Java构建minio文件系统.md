@@ -91,7 +91,7 @@ public class MinioTest {
     // 获取minio对象
     MinioClient minioClient =
             MinioClient.builder()
-                    .endpoint("http://192.168.31.32:9000")
+                    .endpoint("http://minio运行的ip地址:9000")
                     .credentials("minioadmin", "minioadmin")
                     .build();
 
