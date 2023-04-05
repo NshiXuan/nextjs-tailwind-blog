@@ -195,6 +195,13 @@ public class MinioTest {
 
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8970b7171a10437b89638d71a25ebe90~tplv-k3u1fbpfcp-watermark.image?)
 
+```yml
+# 设置最大上传文件的大小为10MB
+spring.servlet.multipart.max-file-size=10MB
+# 设置单个文件最大上传大小为5MB
+spring.servlet.multipart.max-request-size=5MB
+```
+
 2.配置 `minio` 的信息，启动类的 `application.yml`
 
 ![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4628fd62da0a4b7d99b85101e59a091d~tplv-k3u1fbpfcp-watermark.image?)
