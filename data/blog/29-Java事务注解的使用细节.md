@@ -7,7 +7,7 @@ draft: false
 summary: 'Java事务注解的使用细节'
 images: # 文章封面 不要就留个''空字符串
   [
-    'https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f2ff2a0330b94d4d935cd2cc26a1b4f5~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?',
+    'https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/092a3c32e4494613b7ee25a1d42004c5~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?',
   ]
 layout: PostLayout
 ---
