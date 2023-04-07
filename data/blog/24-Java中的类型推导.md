@@ -45,16 +45,21 @@ public class R<T> implements Serializable {
         this.msg = msg;
     }
 
+    public static <T> R<T> ok() {
+        return new R<>(0, "success");
+    }
+
     public static <T> R<T> ok(T data) {
-        return new R(0, data, "success");
+        return new R<>(0, data, "success");
     }
 
     public static <T> R<T> success(String msg, T data) {
-        return new R(0, data, msg);
+        return new R<>(0, data, msg);
     }
 
     public static <T> R<T> error(Integer code, String msg) {
-        return new R(code, msg);
+        return new R<>(code, msg);
     }
 }
+
 ```
