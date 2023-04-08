@@ -20,16 +20,16 @@ layout: PostLayout
 练习：封装接口返回值类型 `R`
 
 ```java
+import com.minio.exception.Code;
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
 public class R<T> implements Serializable {
-    private Integer code;
+    private Integer code; // 0代表成功 -1代表失败
     private T data;
     private String msg;
-
 
     public R() {
     }
@@ -45,11 +45,11 @@ public class R<T> implements Serializable {
         this.msg = msg;
     }
 
-    public static <T> R<T> ok() {
+    public static <T> R<T> success() {
         return new R<>(0, "success");
     }
 
-    public static <T> R<T> ok(T data) {
+    public static <T> R<T> success(T data) {
         return new R<>(0, data, "success");
     }
 
@@ -57,9 +57,45 @@ public class R<T> implements Serializable {
         return new R<>(0, data, msg);
     }
 
+    public static <T> R<T> success(Code code) {
+        return new R<>(code.getCode(), code.getMsg());
+    }
+
+    public static <T> R<T> error(String msg) {
+        return new R<>(-1, msg);
+    }
+
+    public static <T> R<T> error(Code code) {
+        return new R<>(code.getCode(), code.getMsg());
+    }
+
     public static <T> R<T> error(Integer code, String msg) {
         return new R<>(code, msg);
     }
 }
+```
 
+- `Code`
+
+```java
+public enum Code {
+    SERVICE_BUSY(500, "服务繁忙"), // 枚举分隔不能使用; 需要使用,
+    UPLOAD_ERROR(1001, "上传失败");
+
+    private Integer code;
+    private String msg;
+
+    private Code(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+}
 ```
