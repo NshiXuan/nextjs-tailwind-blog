@@ -61,6 +61,10 @@ public class R<T> implements Serializable {
         return new R<>(code.getCode(), code.getMsg());
     }
 
+    public static <T> R<T> success(Code code, T data) {
+        return new R<>(code.getCode(), data, code.getMsg());
+    }
+
     public static <T> R<T> error(String msg) {
         return new R<>(-1, msg);
     }
