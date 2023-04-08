@@ -1,10 +1,10 @@
 ---
-title: 'Java构建minio文件系统' # 标题
+title: 'Java构建minio文件系统实现分片上传' # 标题
 date: '2023/3/31' # 发布时间
 # lastmod: '2022/3/10'
 tags: [Java] # 标签
 draft: false
-summary: 'Java构建minio文件系统'
+summary: 'Java构建minio文件系统实现分片上传'
 images: # 文章封面 不要就留个''空字符串
   [
     'https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f2ff2a0330b94d4d935cd2cc26a1b4f5~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?',
