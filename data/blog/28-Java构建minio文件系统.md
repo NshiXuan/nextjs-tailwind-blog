@@ -497,7 +497,7 @@ public class MediaFileServiceImpl implements MediaFileService {
 
 ## 分片上传
 
-### Java 开发分片接口
+### Java 开发分片上传接口
 
 1. 定义测试表
 
