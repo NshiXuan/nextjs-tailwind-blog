@@ -29,6 +29,8 @@ pnpm add cos-js-sdk-v5 --save
 - 如果上传的文件大于等于 `5MB` ，则会自动分片上传
 - 可以通过在 options 参数中设置 partSize 属性来自定义分片大小
 
+这里测试直接把密钥写死了，这里如果在开发时需要后端返回临时的密钥
+
 ```ts
 import React, { useState } from 'react'
 import type { FC } from 'react'
