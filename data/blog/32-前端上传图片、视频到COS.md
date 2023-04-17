@@ -18,15 +18,13 @@ layout: PostLayout
 
 ## 安装依赖
 
-```bash
-pnpm add cos-js-sdk-v5 --save
-```
+    pnpm add cos-js-sdk-v5 --save
 
 ## 上传测试
 
 `COS` 提供了一个 `uploadFile` 的方法上传大文件，并实现了断点续传
 
-- 如果上传的文件大于等于 `5MB` ，则会自动分片上传
+- SliceSize 定义文件多大时分片上传（默认为 1MB），如下如果上传的文件大于等于 `5MB` ，则会自动分片上传
 - 可以通过在 options 参数中设置 partSize 属性来自定义分片大小
 
 这里测试直接把密钥写死了，这里如果在开发时需要后端返回临时的密钥
@@ -44,19 +42,21 @@ const Test: FC<IProps> = function (props) {
   const [progress, setProgress] = useState(0)
   const [videoUrl, setVideoUrl] = useState<any>()
 
+  // 上传文件、视频
   async function uploadFileOrPic(file: any) {
     var cos = new COS({
       SecretId: '密钥id',
       SecretKey: '密钥key',
     })
 
-    // uploadFile方法上传文件时，如果上传的文件大小大于等于5MB，则会自动分片上传
+    // uploadFile方法上传文件时，如果上传的文件大小大于等于5MB，则会自动分片上传 默认的分片大小为8MB。但是可以通过在options参数中设置partSize属性来自定义分片大小
     cos.uploadFile(
       {
-        Bucket: '桶名称',
-        Region: '地域' /* 存储桶所在地域，必须字段 */,
+        Bucket: 'video-1309614912',
+        Region: 'ap-guangzhou' /* 存储桶所在地域，必须字段 */,
         Key: 'test1.mp4', // 文件名
         Body: file, // 上传文件对象
+        SliceSize: 1024 * 1024 * 5, // 大于5M分块上传
         onProgress: function (progressData) {
           console.log(JSON.stringify(progressData))
           setProgress(Math.ceil(progressData.percent * 100))
@@ -69,6 +69,7 @@ const Test: FC<IProps> = function (props) {
     )
   }
 
+  // 选择文件
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0]
     if (selectedFile) {
@@ -76,6 +77,7 @@ const Test: FC<IProps> = function (props) {
     }
   }
 
+  // 获取视频地址
   function getVideoUrl() {
     var cos = new COS({
       SecretId: '密钥id',
@@ -84,8 +86,8 @@ const Test: FC<IProps> = function (props) {
 
     cos.getObjectUrl(
       {
-        Bucket: '桶名称',
-        Region: '地域' /* 存储桶所在地域，必须字段 */,
+        Bucket: 'video-1309614912',
+        Region: 'ap-guangzhou' /* 存储桶所在地域，必须字段 */,
         Key: 'test1.mp4', // 文件名
         Sign: true /* 获取带签名的对象 URL */,
       },
