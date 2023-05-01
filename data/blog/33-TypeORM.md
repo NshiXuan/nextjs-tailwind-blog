@@ -132,9 +132,141 @@ export class AppModule {}
 
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/25bab41c114a4ff79808cad3d44738d5~tplv-k3u1fbpfcp-watermark.image?)
 
+## 数据库生成实体类
+
+1. 安装生成器依赖
+
+```
+pnpm i typeorm-model-generator -D
+```
+
+2.配置 `package.json` 命令
+
+- `-p` 端口
+- `-d` 数据库
+- `-x` 后接密码
+- `-o` 后接生成实体类的存放路径
+
+```json
+"generate:models": "typeorm-model-generator -h localhost -p 3307 -d testdb -u root -x example -e mssql -o ./src/entities"
+```
+
+3. 运行命令
+
+```
+pnpm generate:models
+```
+
+## 增删改查
+
+1. 在 `user.module.ts` 中导入 `TypeOrmModule`
+
+```ts
+import { Module } from '@nestjs/common'
+import { UserService } from './user.service'
+import { UserController } from './user.controller'
+import { User } from './entities/user.entity'
+import { TypeOrmModule } from '@nestjs/typeorm'
+
+@Module({
+  imports: [TypeOrmModule.forFeature([User])],
+  controllers: [UserController],
+  providers: [UserService],
+})
+export class UserModule {}
+```
+
+2. `dto`
+
+```ts
+export class CreateUserDto {
+  username: string
+  password: string
+}
+```
+
+3. `user.service.ts`
+
+```ts
+import { Injectable } from '@nestjs/common'
+import { CreateUserDto } from './dto/create-user.dto'
+import { UpdateUserDto } from './dto/update-user.dto'
+import { InjectRepository } from '@nestjs/typeorm'
+import { User } from './entities/user.entity'
+import { Repository } from 'typeorm'
+
+@Injectable()
+export class UserService {
+  constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+
+  create(createUserDto: CreateUserDto) {
+    return this.userRepository.save(createUserDto)
+  }
+
+  findAll() {
+    return this.userRepository.find()
+  }
+
+  findOne(id: number) {
+    return this.userRepository.findOne({ where: { id } })
+  }
+
+  async update(id: number, updateUserDto: Partial<User>) {
+    await this.userRepository.update(id, updateUserDto)
+    return this.findOne(id)
+  }
+
+  remove(id: number) {
+    return this.userRepository.delete(id)
+  }
+}
+```
+
+4. `controller`
+
+```ts
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
+import { UserService } from './user.service'
+import { UpdateUserDto } from './dto/update-user.dto'
+import { User } from './entities/user.entity'
+import { CreateUserDto } from './dto/create-user.dto'
+
+@Controller('user')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @Post()
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto)
+  }
+
+  @Get()
+  findAll() {
+    return this.userService.findAll()
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.userService.findOne(+id)
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateUserDto: Partial<User>) {
+    return this.userService.update(+id, updateUserDto)
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.userService.remove(+id)
+  }
+}
+```
+
 ## 联合关系
 
 ### OneToOne
+
+1. 定义 `entities`
 
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/84aead0732c34cb597e9774b9fe379f5~tplv-k3u1fbpfcp-watermark.image?)
 
@@ -170,9 +302,8 @@ export class Profile {
 `user`
 
 ```ts
-import { Logs } from 'src/logs/logs.entity'
-import { Roles } from 'src/roles/entity/roles.entity'
-import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Profile } from './profile.entity'
 
 @Entity()
 export class User {
@@ -184,10 +315,41 @@ export class User {
 
   @Column()
   password: string
+
+  @OneToOne(() => Profile, (profile) => profile.user)
+  profile: Profile
 }
 ```
 
+2. 查询
+
+```ts
+@Injectable()
+export class UserService {
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>
+  ) { }
+
+  ...
+
+  findProfile(id: number) {
+    return this.userRepository.find({
+      where: {
+        id
+      },
+      relations: {
+        profile: true
+      }
+    })
+  }
+}
+```
+
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0f927d73b1fa4d5abe7204ce13c831c9~tplv-k3u1fbpfcp-watermark.image?)
+
 ### OneToMany 与 ManyToMany
+
+1. 定义 `entities`
 
 `User`
 
@@ -272,27 +434,112 @@ export class Roles {
 }
 ```
 
-## 数据库生成实体类
+2. 查询
 
-1. 安装生成器依赖
+```ts
+@Injectable()
+export class UserService {
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Logs) private logsRepository: Repository<Logs>
+  ) { }
 
+  ...
+
+  async findUserLogs(id: number) {
+    const user = await this.findOne(id)
+    return this.logsRepository.find({
+      where: {
+        user
+      }
+      // relations: {
+      //   user: true
+      // }
+    })
+  }
+}
 ```
-pnpm i typeorm-model-generator -D
+
+注释 `relations` ，不会把 `user` 查出来
+
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/250e76bbc1644252b9f4cc6824b1b89d~tplv-k3u1fbpfcp-watermark.image?)
+
+使用 `relations` ，把 `user` 查出来
+
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5cee62c4103d46838b2b045c390d5556~tplv-k3u1fbpfcp-watermark.image?)
+
+## QueryBuilder
+
+### 基本使用
+
+`service`
+
+```ts
+@Injectable()
+export class UserService {
+  constructor(
+    @InjectRepository(Logs) private logsRepository: Repository<Logs>
+  ) {}
+
+  ...
+
+  getLogsByGroup(id: number): Promise<any[]> {
+    // SELECT logs.result as result, COUNT(logs.result) as count from logs, user WHERE user.id = logs.userId AND user.id = 2 GROUP BY logs.result
+
+    // logs为别名
+    return this.logsRepository
+      .createQueryBuilder('logs')
+      .select('logs.result', 'result')
+      .addSelect('COUNT("logs.result")', 'count') // count为COUNT("logs.result")的别名
+      .leftJoinAndSelect('logs.user', 'user')
+      .where('user.id=:id', { id })
+      .groupBy('logs.result')
+      .orderBy('result', 'DESC') // 根据result倒序排列
+      .addOrderBy('count', 'DESC') // 如果result相同 根据count倒序排列
+      .limit(3) // 只查3条
+      .getRawMany()
+  }
+}
 ```
 
-2.配置 `package.json` 命令
+`controller`
 
-- `-p` 端口
-- `-d` 数据库
-- `-x` 后接密码
-- `-o` 后接生成实体类的存放路径
+```ts
+@Controller('user')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
 
-```json
-"generate:models": "typeorm-model-generator -h localhost -p 3307 -d testdb -u root -x example -e mssql -o ./src/entities"
+  @Get('/logsByGroup/:id')
+  async getLogsByGroup(@Param('id') id: string) {
+    const res = await this.userService.getLogsByGroup(+id)
+
+    // 映射返回数据 只返回 result 与 count
+    return res.map((item) => ({
+      result: item.result,
+      count: item.count,
+    }))
+  }
+}
 ```
 
-3. 运行命令
+![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/474bed4ce71243d0ab846fd3ac019b50~tplv-k3u1fbpfcp-watermark.image?)
 
-```
-pnpm generate:models
+### 原生使用
+
+`service`
+
+```ts
+@Injectable()
+export class UserService {
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Logs) private logsRepository: Repository<Logs>
+  ) {}
+
+  getLogsByGroup(id: number): Promise<any[]> {
+    return this.logsRepository.query(
+      'SELECT logs.result as result, COUNT(logs.result) as count from logs, user WHERE user.id = logs.userId AND user.id = 2 GROUP BY logs.result'
+    )
+  }
+}
 ```
