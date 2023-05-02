@@ -63,7 +63,9 @@ export enum ConfigEnum {
 
 ![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/472c6e29b2304e4cb3baf95b9ba3cd5a~tplv-k3u1fbpfcp-watermark.image?)
 
-```ts
+- `unique` 代表唯一索引
+
+````ts
 import { Logs } from 'src/logs/logs.entity'
 import { Roles } from 'src/roles/entity/roles.entity'
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
@@ -73,13 +75,12 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
+  @Column({ unique: true })
   username: string
 
   @Column()
   password: string
 }
-```
 
 3.  在 `app.module` 引入
 
@@ -133,7 +134,7 @@ import { Logs } from './logs/logs.entity'
   providers: [AppService],
 })
 export class AppModule {}
-```
+````
 
 或者也可以创建一个文件配置 `TypeOrmModule`
 
