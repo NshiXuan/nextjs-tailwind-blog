@@ -12,6 +12,13 @@ images: # 文章封面 不要就留个''空字符串
 layout: PostLayout
 ---
 
+---
+
+theme: scrolls-light
+highlight: a11y-dark
+
+---
+
 ## 安装 typeorm
 
 ```
@@ -121,6 +128,62 @@ import { Logs } from './logs/logs.entity'
         } as TypeOrmModuleOptions),
     }),
     UserModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
+```
+
+或者也可以创建一个文件配置 `TypeOrmModule`
+
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/455eecf61252456b852d031087cc3c89~tplv-k3u1fbpfcp-watermark.image?)
+
+```ts
+import { TypeOrmModuleOptions } from '@nestjs/typeorm'
+import { Logs } from './src/logs/entities/logs.entity'
+import { Roles } from './src/roles/entity/roles.entity'
+import { Profile } from './src/user/entities/profile.entity'
+import { User } from './src/user/entities/user.entity'
+
+export default {
+  type: 'mysql',
+  host: 'localhost',
+  port: 3307,
+  username: 'root',
+  password: 'example',
+  database: 'testdb',
+  entities: [User, Profile, Roles, Logs],
+  // 同步本地的schema与数据库 -> 初始化的时候使用
+  synchronize: true,
+  // 设置日志输出sql 也可以通过 logs
+  // logging: process.env.NODE_ENV === 'development' // true打印sql语句
+  logging: true,
+} as TypeOrmModuleOptions
+```
+
+`AppModule`
+
+```ts
+import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+
+import { LogsModule } from './logs/logs.module'
+import { UserModule } from './user/user.module'
+import ormconfig from '../ormconfig'
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true, // 定义为全局
+    }),
+    // 必须forRoot forRootAsync不行
+    TypeOrmModule.forRoot(ormconfig),
+    UserModule,
+    LogsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -541,5 +604,154 @@ export class UserService {
       'SELECT logs.result as result, COUNT(logs.result) as count from logs, user WHERE user.id = logs.userId AND user.id = 2 GROUP BY logs.result'
     )
   }
+}
+```
+
+## 分页查询
+
+### find 分页查询
+
+1. 定义查询 `dto`
+
+![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7543cba37cff4214abfcf2074df99bb5~tplv-k3u1fbpfcp-watermark.image?)
+
+```ts
+export interface QueryUserDto {
+  page: number
+  limit?: number
+  username?: string
+  role?: number // 下拉框
+  gender?: number
+}
+```
+
+2. `controller`
+
+```ts
+...
+import { QueryUserDto } from './dto/query-user.dto'
+
+@Controller('user')
+export class UserController {
+  ...
+
+  @Get()
+  findAll(@Query() query: QueryUserDto) {
+    return this.userService.findAll(query)
+  }
+}
+```
+
+3. `service`
+
+- 通过 `take` 、 `skip` 进行分页
+- 会根据 `limit, page, username, gender, role` 是否有值动态形成 `sql`
+
+```ts
+@Injectable()
+export class UserService {
+  ...
+
+  findAll(query: QueryUserDto) {
+    const { limit, page, username, gender, role } = query
+    const take = limit || 10
+
+    return this.userRepository.find({
+      select: {
+        id: true,
+        username: true,
+        profile: {
+          gender: true
+        }
+      },
+      relations: {
+        profile: true,
+        roles: true
+      },
+      where: {
+        username,
+        profile: {
+          gender
+        },
+        roles: {
+          id: role
+        }
+      },
+      take,
+      skip: (page - 1) * take
+    })
+  }
+}
+```
+
+`select`: 可以选择展示什么数据
+
+`relations`: 是否展示联合的数据，如下图的 `profile` 、 `roles`
+
+- 不添加 `select`
+
+![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b88f4a4da15d45ca8e1a695577da4273~tplv-k3u1fbpfcp-watermark.image?)
+
+- 添加 `select`
+
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7f0a59d5a68f4b2c81cc2adc6efbd598~tplv-k3u1fbpfcp-watermark.image?)
+
+### QueryBuilder 分页查询
+
+1. `QueryBuilder` 不能根据参数动态生成 `sql`，需要外面手动动态生成，如下的 `conditionUtils`
+
+```ts
+...
+import { conditionUtils } from 'src/utils/db.helper'
+
+@Injectable()
+export class UserService {
+  ...
+
+  findAll(query: QueryUserDto) {
+    const { limit, page, username, gender, role } = query
+    const take = limit || 10
+
+    const obj = {
+      'user.username': username,
+      'profile.gender': gender,
+      'roles.id': role
+    }
+
+    const queryBuilder = this.userRepository
+      .createQueryBuilder('user')
+      // 通过左连接profile表并把数据填充到user.profile且起个别名profile
+      .leftJoinAndSelect('user.profile', 'profile')
+      .leftJoinAndSelect('user.roles', 'roles')
+
+    const newQuery = conditionUtils<User>(queryBuilder, obj)
+
+    return newQuery
+      .take(take)
+      .skip((page - 1) * take)
+      .getMany()
+  }
+}
+```
+
+2. 封装判断参数是否存在动态添加 `sql` 的工具方法
+
+![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0f6caef021dd4c048f86a92c84ff71fc~tplv-k3u1fbpfcp-watermark.image?)
+
+```ts
+import { SelectQueryBuilder } from 'typeorm'
+
+export const conditionUtils = <T>(
+  queryBuilder: SelectQueryBuilder<T>,
+  obj: Record<string, unknown>
+) => {
+  Object.keys(obj).forEach((key) => {
+    // 如果参数存在 再添加wherer参数
+    if (obj[key]) {
+      queryBuilder.andWhere(`${key}=:${key}`, { [key]: obj[key] })
+    }
+  })
+
+  return queryBuilder
 }
 ```
