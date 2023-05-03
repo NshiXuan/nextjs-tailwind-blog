@@ -12,13 +12,6 @@ images: # 文章封面 不要就留个''空字符串
 layout: PostLayout
 ---
 
----
-
-theme: scrolls-light
-highlight: a11y-dark
-
----
-
 ## 安装 typeorm
 
 ```
@@ -65,7 +58,7 @@ export enum ConfigEnum {
 
 - `unique` 代表唯一索引
 
-````ts
+```ts
 import { Logs } from 'src/logs/logs.entity'
 import { Roles } from 'src/roles/entity/roles.entity'
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
@@ -81,6 +74,7 @@ export class User {
   @Column()
   password: string
 }
+```
 
 3.  在 `app.module` 引入
 
@@ -134,7 +128,7 @@ import { Logs } from './logs/logs.entity'
   providers: [AppService],
 })
 export class AppModule {}
-````
+```
 
 或者也可以创建一个文件配置 `TypeOrmModule`
 
@@ -756,3 +750,49 @@ export const conditionUtils = <T>(
   return queryBuilder
 }
 ```
+
+## TypeORM 数据库异常处理
+
+1. 创建 `typeorm` 的过滤器
+
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/023a9fd2d1194bc2b107ed74ed4f142f~tplv-k3u1fbpfcp-watermark.image?)
+
+```ts
+import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common'
+import { QueryFailedError, TypeORMError } from 'typeorm'
+
+// 捕抓TypeORMError类型的错误
+@Catch(TypeORMError)
+export class TypeormFilter implements ExceptionFilter {
+  catch(exception: TypeORMError, host: ArgumentsHost) {
+    const ctx = host.switchToHttp()
+    // 响应、请求对象
+    const response = ctx.getResponse()
+
+    let code = 500
+    if (exception instanceof QueryFailedError) {
+      code = exception.driverError.errno
+    }
+
+    response.status(500).json({
+      code: code,
+      timestamp: new Date().toISOString(),
+      message: exception.message,
+    })
+  }
+}
+```
+
+2. 使用：可以在 `main.ts` 全局注册 `filter` 使用，也可以在 `controller` 中使用注解 `@UseFilters(new TypeormFilter())`
+
+```ts
+...
+
+@Controller('user')
+@UseFilters(new TypeormFilter())
+export class UserController {
+	...
+}
+```
+
+![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6c3c71f82e944359bbb1d2e9e1110ca2~tplv-k3u1fbpfcp-watermark.image?)
